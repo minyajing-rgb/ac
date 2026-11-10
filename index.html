@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#07111e" />
+    <meta name="description" content="Alpine Chapel 雪夜礼拜堂：免费的瑞士阿尔卑斯山虚拟教堂互动体验。环视雪景与烛光内景，聆听氛围音乐，召唤极光、流星雨与象征圣灵的发光白鸽。" />
+    <meta name="author" content="SAGA1001" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://ac.saga1001.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SAGA1001" />
+    <meta property="og:title" content="Alpine Chapel · 瑞士雪夜礼拜堂" />
+    <meta property="og:description" content="A free, browser-based virtual chapel in the Swiss Alps. Explore snowy twilight and candlelit interiors; summon aurora, meteors and a luminous dove." />
+    <meta property="og:url" content="https://ac.saga1001.com/" />
+    <meta property="og:image" content="https://ac.saga1001.com/assets/exterior.png" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Alpine Chapel · 瑞士雪夜礼拜堂" />
+    <meta name="twitter:description" content="An interactive Alpine sanctuary with ambient music, aurora, meteors and a luminous dove." />
+    <meta name="twitter:image" content="https://ac.saga1001.com/assets/exterior.png" />
+    <title>Alpine Chapel · 瑞士雪夜礼拜堂 | SAGA1001</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Alpine Chapel · 瑞士雪夜礼拜堂",
+        "alternateName": "AC · Alpine Chapel",
+        "url": "https://ac.saga1001.com/",
+        "image": "https://ac.saga1001.com/assets/exterior.png",
+        "description": "A free browser-based interactive virtual chapel set in a stylized Swiss Alpine snow twilight scene, with ambient music, an interior panorama, aurora, meteor shower and a luminous dove inspired by the Holy Spirit.",
+        "inLanguage": ["zh-CN", "en"],
+        "gamePlatform": "Web browser",
+        "applicationCategory": "Game",
+        "genre": ["Exploration", "Ambient experience", "Spiritual art"],
+        "keywords": "Alpine Chapel, virtual chapel, Swiss Alps, snowy twilight, interactive 3D chapel, aurora, meteor shower, Holy Spirit dove, browser game, 瑞士阿尔卑斯, 虚拟教堂, 雪夜礼拜堂, 极光, 流星雨, 圣灵白鸽",
+        "isAccessibleForFree": true,
+        "publisher": {"@type": "Organization", "name": "SAGA1001", "url": "https://saga1001.com/"}
+      }
+    </script>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div id="scene-root" tabindex="-1" aria-label="可交互的雪夜礼拜堂 3D 场景"></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+      <div id="scene-fade" aria-hidden="true"></div>
+
+      <header class="topbar" inert>
+        <div class="brand" aria-label="Alpine Chapel">
+          <span class="brand-mark">✦</span>
+          <span><strong>ALPINE CHAPEL</strong><small>雪夜礼拜堂</small></span>
+        </div>
+        <div class="top-actions">
+          <button id="back-button" class="icon-button back-button" type="button" aria-label="返回雪夜外景" hidden>← <span class="action-label">返回雪夜</span></button>
+          <button id="sound-button" class="icon-button" type="button" aria-label="开启音乐" aria-pressed="false" title="音乐：First Snow — Scott Buckley">
+            <span class="sound-icon" aria-hidden="true">♫</span><span class="action-label">音乐关闭</span>
+          </button>
+          <button id="fullscreen-button" class="icon-button square" type="button" aria-label="全屏显示" title="全屏显示">⛶</button>
+        </div>
+      </header>
+
+      <div class="chapter-index" aria-hidden="true">
+        <span class="index-current" id="chapter-number">01</span><span class="index-line"></span><span>02</span>
+      </div>
+
+      <main class="hud" inert>
+        <section class="story" aria-live="polite">
+          <p class="eyebrow"><span class="eyebrow-line"></span><span id="scene-eyebrow">SWISS ALPS · BLUE HOUR</span></p>
+          <h1 id="scene-title">暮雪礼拜堂</h1>
+          <p class="story-copy" id="scene-copy">在阿尔卑斯的雪夜停一会。<br />越过灯光，走进安静的礼拜堂。</p>
+          <div class="story-rule"></div>
+          <p class="story-coord" id="scene-coord">SWISS ALPS <span>／</span> A MOMENT OF STILLNESS</p>
+        </section>
+
+        <div class="portal-wrap">
+          <button id="portal-button" class="portal-button" type="button">
+            <span class="portal-ring" aria-hidden="true"><span>✦</span></span>
+            <span id="portal-label">进入礼拜堂</span>
+          </button>
+        </div>
+
+        <aside class="ritual-panel" aria-label="互动召唤">
+          <div class="panel-heading"><span>INTERACTIVE MIRACLES</span><span>01 — 03</span></div>
+          <h2>召唤奇迹</h2>
+          <p class="panel-intro">轻触一刻，让夜空回应你。</p>
+          <div class="ritual-list">
+            <button class="ritual" type="button" data-ritual="aurora">
+              <span class="ritual-icon aurora-icon" aria-hidden="true">◌</span>
+              <span class="ritual-text"><strong>极光召唤</strong><small>AURORA</small></span>
+              <span class="ritual-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button class="ritual" type="button" data-ritual="meteor">
+              <span class="ritual-icon meteor-icon" aria-hidden="true">✧</span>
+              <span class="ritual-text"><strong>流星雨召唤</strong><small>METEOR SHOWER</small></span>
+              <span class="ritual-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button class="ritual" type="button" data-ritual="spirit">
+              <span class="ritual-icon spirit-icon" aria-hidden="true">✺</span>
+              <span class="ritual-text"><strong>圣灵召唤</strong><small>LUMINOUS DOVE</small></span>
+              <span class="ritual-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <p class="panel-note">无需注册 · 无聊天 · 只有片刻安静</p>
+        </aside>
+      </main>
+
+      <footer class="bottom-bar">
+        <span id="scene-indicator"><span class="status-dot"></span> 雪夜外景</span>
+        <span class="controls-hint">拖动环视 <b>·</b> 滚轮或双指拉近 <b>·</b> 点击场景探索</span>
+        <span class="footer-contact"><span class="collab">欢迎合作 · Open to collaborations</span><a href="mailto:joyce@saga1001.com">joyce@saga1001.com</a><a href="https://saga1001.com/" target="_blank" rel="noopener noreferrer">saga1001.com</a><a href="./about.html">关于 / About</a></span>
+      </footer>
+      <audio id="bgm" src="./assets/first-snow-scott-buckley.mp3" preload="none" loop></audio>
+
+      <div id="spirit-effect" class="spirit-effect" aria-hidden="true">
+        <div class="spirit-rays"></div><div class="spirit-halo"></div>
+        <img src="./assets/spirit-dove.png" alt="" />
+        <span class="spirit-caption">光降临于此</span>
+      </div>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+      <div id="intro" class="intro">
+        <div class="intro-image" aria-hidden="true"></div>
+        <div class="intro-shade" aria-hidden="true"></div>
+        <div class="intro-content">
+          <div class="intro-symbol" aria-hidden="true">✦</div>
+          <p class="intro-kicker">AN INTERACTIVE ALPINE SANCTUARY</p>
+          <h2>雪夜有光<span>。</span></h2>
+          <p>一座瑞士山间礼拜堂，一场只属于你的雪夜。<br />环视、靠近，召唤天空里的微光。<br /><span lang="en">Explore a virtual chapel at snowy Swiss Alpine twilight.</span></p>
+          <button id="enter-button" class="enter-button" type="button" disabled><span>步入雪夜</span><span aria-hidden="true">→</span></button>
+          <small>建议开启声音 · 戴上耳机 · 约 2 分钟</small>
+          <div class="intro-credit">Music: “First Snow” by Scott Buckley · <a href="./about.html#music-credit">CC BY 4.0</a></div>
+        </div>
+        <span class="intro-edge">SWISS ALPS <i>✦</i> TWILIGHT</span>
+      </div>
+
+      <div id="loading" class="loading" role="status" aria-live="polite">正在点亮雪夜…</div>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
